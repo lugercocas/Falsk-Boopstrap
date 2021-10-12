@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    {% block head %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{url_for('static', filename='bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='bootstrap-icons.min.css')}}" rel="stylesheet">
+    
+    <title>Ross Stores</title>
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #262a2e;">
+        <div class="container-fluid">            
+          <a class="navbar-brand text-light" href="/">
+            <i class="bi-building text-light" style="font-size: 2rem; color: cornflowerblue;"></i>
+            Ross Stores</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-light" aria-current="page" href="/">Inicio</a>
+              </li>
+              {% if logueado %}
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/admin">Administración</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/registrarse">Registrarse</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/productos">Productos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/soporte">Soporte</a>
+              </li>
+            </ul>
+            <form class="d-flex" action="/buscar">
+              <input class="form-control me-3" type="search" placeholder="Buscar Producto" aria-label="Search">
+              <button class="btn btn-outline-light me-3" type="submit">Buscar</button>              
+            </form>
+            {% if logueado %}
+            <form class="d-flex" action="/logout">
+              <button class="btn btn-secondary btn-lg active me-3" type="submit">Cerrar Sesión</button>              
+            </form>            
+            {% else %}
+            <form class="d-flex" action="/login">
+              <button class="btn btn-secondary btn-lg active me-3" type="submit">Iniciar Sesión</button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+
+      <!--Body-->
+      <div id="content">{% block content %}{% endblock %}</div>
+      <!--End Body-->
+    <!--Footer-->
+    <footer class="navbar-dark bg-dark fixed-bottom text-center">
+        <div class="container-fluid">
+          <p class="text-light text-center">
+              <br>
+            &copy;Ross Stores 2021 Todos los derechos reservados.
+          </p>
+        </div>        
+    </footer>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+  </body>
+</html>

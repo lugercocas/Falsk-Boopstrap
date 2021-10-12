@@ -1,0 +1,62 @@
+{% extends "navbar-footer.html" %}
+{% block content %}
+<br><br><br><br><br>
+<div class="content">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="card text-dark bg-light mb-3" style="max-width: 100%;">
+                <div class="card-header text-center">
+                    <i class="bi-person-circle" style="font-size: 3rem; color: rgb(12, 29, 65);"></i>
+                    <h4>Formulario de Registro</h4>
+                </div>
+                <div class="card-body">
+                  <form action="" method="post">
+                    <label for="inputEmail3" class="col-sm-12 col-form-label">Nombres y Apellidos</label>
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control" id="nombres" name="nombres">
+                    </div>
+                    <label for="inputEmail3" class="col-sm-12 col-form-label">Dirección</label>
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control" id="direccion" name="direccion">
+                    </div>
+                    <label for="inputEmail3" class="col-sm-12 col-form-label">Teléfono</label>
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control" id="telefono" name="telefono">
+                    </div>
+                    <label for="inputEmail3" class="col-sm-12 col-form-label">Correo Electrónico</label>
+                    <div class="col-sm-12">
+                      <input type="email" class="form-control" id="inputEmail3" name="username">
+                    </div>
+                    <label for="password" class="col-sm-12 col-form-label">Contraseña</label>
+                    <div class="col-sm-12">
+                        <input type="password" name="password" class="form-control" id="password">
+                    </div>
+                    <label for="passwordv" class="col-sm-12 col-form-label">Confirmar Contraseña</label>
+                    <div class="col-sm-12">
+                        <input type="password" name="passwordv" class="form-control" id="passwordv">
+                    </div> 
+                    <br>                    
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Registrarse</button> 
+                            </div>   
+                            <a href="/login">
+                                <i class="bi bi-person-plus"></i>
+                                Iniciar Sesión!
+                              </a>                        
+                        </div>
+                        <div class="col-3"></div>
+                    </div>                                       
+                  </form>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}
