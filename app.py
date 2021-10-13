@@ -1,8 +1,13 @@
 from flask import Flask, render_template, request, session, redirect
 from modelodatos import usuarios
+from modelodatos import productosdb
+from modelodatos import comentarios
+
 
 global logueado
+global user_logueado
 logueado = False
+
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -45,7 +50,9 @@ def validarInicioSesion(usuario,clave):
         print(user[1],user[2],usuario,clave)
         if (user[1] == usuario and user[2]==clave):
             global logueado
+            global user_logueado
             session['username'] = usuario
+            user_logueado = user
             logueado = True
             pagina = "/"
             break
@@ -57,21 +64,29 @@ def validarInicioSesion(usuario,clave):
 def logout():
     global logueado
     logueado = False
+    #eliminamos la sesión.
+    session.pop('username')
     return redirect('/')
 
 @app.route('/admin')
 def admin():
     global logueado
+    global user_logueado
     if logueado:
-        return render_template('admin.html',logueado=logueado)
+        #validamos el rol y devolvemos la vista que necesita.
+        if (user_logueado[0]==1):
+            #Si es un Administrador, mostrar la página del admin
+            return render_template('useradmin.html',logueado=logueado,usuario=user_logueado)
+        elif (user_logueado[0]==2):
+            #Si es un Super Administrador, mostrar la página del superadmin
+            return render_template('usersuper.html',logueado=logueado,usuario=user_logueado)
+        else:
+            #En caso contrario retornar la página del usuario
+            return render_template('user.html',logueado=logueado,usuario=user_logueado)        
     else:
-        return render_template('/',logueado=logueado)
+        return redirect('/login/')
 
 #Página de Registro
-#@app.route('/registrarse')
-#def registrarse():
-#    return render_template('registrarse.html')
-
 @app.route('/registrarse',methods =['POST','GET'])
 def registrarse():
     if request.method == 'GET':
@@ -95,6 +110,7 @@ def registrarse():
             #yag.send(to=mail, subject='Acticación cuenta exitosa',
             #contents='Bienvenido, usa el siguiente enlace')
             #flash('Revisa tu correo para activar tu cuenta.')
+            usuarios.append([0,usuario,clave,nombres,telefono,direccion])
             return redirect('/login')
         else:
             return render_template('registrarse.html')
@@ -103,3 +119,41 @@ def registrarse():
 
 def validaRegistro():
     return True
+
+@app.route('/admproductos')
+def admProductos():
+    global logueado
+    global user_logueado
+    return render_template ('admproductos.html', logueado=logueado,usuario=user_logueado, productos = productosdb)
+
+@app.route('/producto',methods =['POST','GET'])
+def eliminarProductos():
+    if request.method == 'GET':
+        if(request.args.get('eliminarproducto') != None):
+            id_producto = int(request.args.get('eliminarproducto'))
+            i = 0
+            for proc in productosdb:
+                if(proc[0] == id_producto):
+                    productosdb.pop(i)  
+                break       
+            i = i+1
+            return redirect('/admproductos')
+        elif(request.args.get('editarproducto')!= None ):
+            id_producto = int(request.args.get('editarproducto'))
+            aux = []
+            for proc in productosdb:
+                if (proc[0] == id_producto):
+                 aux = proc 
+                break       
+            return render_template('editarproducto.html', producto = aux, logueado=logueado,usuario=user_logueado)
+        elif(request.args.get('verproducto')!= None ):
+            return render_template('verproducto.html')
+    elif request.method == 'POST':
+        nombreproducto = request.form.get('nombreproducto') 
+        precio = request.form.get('precio') 
+        descripcion = request.form.get('descripcion') 
+        nombreproducto = request.form.get('nombreproducto') 
+        render_template('/admproductos')
+    
+
+    

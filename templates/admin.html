@@ -1,5 +1,59 @@
 {% extends "navbar-footer.html" %}
 {% block content %}
-<br><br><br>
-<p>Página de Administración.</p>
+<br><br><br><hr>
+<div class="row">
+    <div class="col-3 bg-ligh">
+        <!--Menú lateral izquierdo-->
+        <h4 class="text-center">
+            <i class="bi bi-sliders"></i>
+            Menú Opciones
+        </h4>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-secondary">
+                <a class="nav-link active" aria-current="page" href="#">
+                    <i class="bi bi-house-door"></i>
+                    Inicio
+                </a>
+            </li>
+            <li class="list-group-item list-group-item-secondary">
+                <a class="nav-link active" aria-current="page" href="#">
+                    <i class="bi bi-person-badge"></i>
+                    Perfíl
+                </a>
+            </li>            
+            <li class="list-group-item list-group-item-secondary">
+                <a class="nav-link active" aria-current="page" href="#">
+                    <i class="bi bi-cart-plus"></i>
+                    Compras
+                </a>
+            </li>
+            {% if (usuario[0] == 1 or usuario[0] == 2) %}
+            <li class="list-group-item list-group-item-secondary">
+                <a class="nav-link active" aria-current="page" href="/admproductos">
+                    <i class="bi bi-patch-plus"></i>
+                    Productos
+                </a>
+            </li>
+            {% endif %}
+            <!--Solo se muestra si el rol es de Super Administrador-->
+            {% if (usuario[0] == 2) %}
+            <li class="list-group-item list-group-item-secondary">
+                <a class="nav-link active" aria-current="page" href="#">
+                    <i class="bi bi-people"></i>
+                    Usuarios
+                </a>
+            </li>
+            {% endif %}
+            <li class="list-group-item list-group-item-secondary">
+                <a class="nav-link active" aria-current="page" href="#">
+                    <i class="bi bi-question-circle"></i>
+                    Ayuda
+                </a>
+            </li>
+          </ul>
+    </div>
+    <div class="col-9">        
+        {% block admin %}{% endblock %}
+    </div>
+</div>
 {% endblock %}
