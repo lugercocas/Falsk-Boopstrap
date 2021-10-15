@@ -1,17 +1,18 @@
 {% extends "useradmin.html" %}
 {% block admin %}
-<h1>Editar producto {{producto[1]}}</h1>
-<form action="producto" method="post">
+<h1>Agregar un Nuevo Producto</h1>
+
+<form action="agregarproducto" method="post">
     <div class="container">
         <div class="row">
           <div class="col-8">
                 <label for="nombreproducto" class="col-sm-12 col-form-label">Nombre del Producto</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" id="nombreproducto" name="nombreproducto" value="{{producto[1]}}">
+                    <input type="text" class="form-control" id="nombreproducto" name="nombreproducto" value="">
                 </div>            
                 <label for="imagen" class="col-sm-12 col-form-label">Imagen</label>
                 <div class="col-sm-12">
-                    <img src="../static/{{producto[3]}}" value="{{producto[3]}}"><br>                    
+                    <img src="" value=""><br>                    
                 </div>    
                 <div class="input-group mb-3">
                     <input type="file" class="form-control" id="inputGroupFile02">
@@ -21,11 +22,11 @@
           <div class="col-4">
                 <label for="precio" class="col-sm-12 col-form-label">Precio</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="precio" name="precio" value="{{producto[2]}}">
+                  <input type="text" class="form-control" id="precio" name="precio" value="">
                  </div>
                 <label for="descripcion" class="col-sm-12 col-form-label">Descripción</label>
                 <div class="col-sm-12">
-                    <textarea name="descripcion" id="descripcion" cols="30" rows="10">{{producto[4]}}</textarea>
+                    <textarea name="descripcion" id="descripcion" cols="30" rows="10"></textarea>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>
@@ -33,11 +34,9 @@
           </div>
         </div>
       </div>
-    
-
-        
-
-
 </form>
 <br><br><br>
+
+
+
 {% endblock %}

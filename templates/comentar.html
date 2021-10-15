@@ -1,0 +1,32 @@
+{% extends "useradmin.html" %}
+{% block admin %}
+<link rel="stylesheet" href="/static/style.css">
+<div class="container">
+    <div class="datosproducto">
+        <div class="nombreproducto">
+            <h5>NOMBRE DEL PRODUCTO</h5>
+        </div>
+        <div class="imgproducto">
+            <img src="{{url_for('static', filename='producto0.jpg')}}" id="imgproducto" alt=""> 
+        </div>
+    </div>
+
+    <div class="cajacomentario">
+        <form name="fcom" id="fcom" action="" method="POST">
+            <div class="textocomentario">
+                <div><p>Escribe tu opinion: </p></div>
+                <div class="cajatexto"><textarea name="comtxt" id="comtxt" cols="50" rows="10"></textarea></div>
+            </div>
+            <div class="resumen">
+                <div><p>Resume tu opinión en una frase (Opcional):</p></div>
+                <div class="cajatexto"><textarea name="comtxt" id="comtxt" cols="50" rows="2"></textarea></div>
+            </div>
+            <div class="botones">
+                <div><input type="button" name="cancelar" id="btncancelar" value="Cancelar" onclick="location.href"></div>
+                <div><input type="button" name="enviar" id="btnenviar" value="Enviar" onclick="submit();"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}

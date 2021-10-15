@@ -5,9 +5,13 @@ from modelodatos import comentarios
 
 
 global logueado
+global idProducto
 global user_logueado
+idProducto = 0
 logueado = False
-
+#--------------------
+#Activar modo debugger en powershell
+#$env:FLASK_ENV = "development"
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -20,7 +24,8 @@ def index():
 
 @app.route('/soporte')
 def soporte():
-    return render_template('soporte.html')
+    global logueado
+    return render_template('soporte.html',logueado = logueado)
 
 @app.route('/productos')
 def productos():
@@ -54,7 +59,7 @@ def validarInicioSesion(usuario,clave):
             session['username'] = usuario
             user_logueado = user
             logueado = True
-            pagina = "/"
+            pagina = "/admin"
             break
         else:
             pagina = "/login"
@@ -128,6 +133,7 @@ def admProductos():
 
 @app.route('/producto',methods =['POST','GET'])
 def eliminarProductos():
+    global idProducto
     if request.method == 'GET':
         if(request.args.get('eliminarproducto') != None):
             id_producto = int(request.args.get('eliminarproducto'))
@@ -135,8 +141,8 @@ def eliminarProductos():
             for proc in productosdb:
                 if(proc[0] == id_producto):
                     productosdb.pop(i)  
-                break       
-            i = i+1
+                    break       
+                i = i+1
             return redirect('/admproductos')
         elif(request.args.get('editarproducto')!= None ):
             id_producto = int(request.args.get('editarproducto'))
@@ -144,16 +150,98 @@ def eliminarProductos():
             for proc in productosdb:
                 if (proc[0] == id_producto):
                  aux = proc 
-                break       
+                 break 
+            idProducto = id_producto    
             return render_template('editarproducto.html', producto = aux, logueado=logueado,usuario=user_logueado)
         elif(request.args.get('verproducto')!= None ):
-            return render_template('verproducto.html')
+            id_producto = int(request.args.get('verproducto'))
+            aux = []
+            for proc in productosdb:
+                if (proc[0] == id_producto):
+                 aux = proc 
+                 break 
+            print(productosdb[0])
+            print(id_producto,aux)
+            return render_template('verproducto.html', producto = aux, logueado=logueado,usuario=user_logueado)
     elif request.method == 'POST':
         nombreproducto = request.form.get('nombreproducto') 
         precio = request.form.get('precio') 
-        descripcion = request.form.get('descripcion') 
+        #imagen = request.form.get('imagen')   
+        descripcion = request.form.get('descripcion')         
+        i = 0
+        for p in productosdb:
+            if p[0] == idProducto:
+                productosdb[i][1] = nombreproducto
+                productosdb[i][2] = precio
+                #productosdb[i][3] = imagen
+                productosdb[i][4] = descripcion
+            i = i+1
+        return redirect('/admproductos')
+    
+@app.route('/agregarproducto', methods =['POST','GET'])
+def agregarproducto():
+    global logueado
+    global user_logueado
+    if request.method == 'GET':        
+        return render_template('/agergarproducto.html',logueado=logueado,usuario=user_logueado)
+    elif request.method == 'POST':
+        #leer datos del producto y actualizar
+        id = len(productosdb) +1
         nombreproducto = request.form.get('nombreproducto') 
-        render_template('/admproductos')
-    
+        precio = request.form.get('precio') 
+        #imagen = request.form.get('imagen')   
+        descripcion = request.form.get('descripcion') 
+        print('Probando')
+        print(productosdb)
+        productosdb.append([id,nombreproducto,precio,'producto0.jpg',descripcion])
+        return redirect('/admproductos')
+        #return render_template('/agergarproducto.html',logueado=logueado,usuario=user_logueado)
 
-    
+@app.route('/perfil')
+def perfil():
+    global logueado
+    global user_logueado
+    return render_template('perfil.html',logueado=logueado,usuario=user_logueado)
+
+@app.route('/comprados/comentar/', methods=['GET', 'POST'])
+def comentar():
+    global logueado
+    global user_logueado
+    return render_template('comentar.html', logueado=logueado, usuario=user_logueado)
+
+@app.route('/comprados/')
+def comprados():
+    global logueado
+    global user_logueado
+    return render_template('comprados.html', logueado=logueado, usuario=user_logueado)
+
+@app.route('/actualizardatos', methods=['POST'])
+def actualizardatos():
+    global logueado
+    global user_logueado
+    if request.method == 'POST': 
+        nombres = request.form.get('nombres') 
+        direccion = request.form.get('direccion') 
+        telefono = request.form.get('telefono')          
+        usuario = request.form.get('username') #El usuario es el mismo correo
+        password = request.form.get('password')
+        clave = request.form.get('passwordv') 
+        j=0
+        for us in usuarios:
+            if us[0] == user_logueado[0]:
+                usuarios[j]=[us[0],usuario,clave,nombres,telefono,direccion]
+                user_logueado = [us[0],usuario,clave,nombres,telefono,direccion]
+                break
+            j = j+1        
+        return render_template('/perfil.html',logueado=logueado, usuario=user_logueado)
+    else:
+        return redirect('admin')
+
+@app.route('/usuarios')
+def usuariosact():
+    global logueado
+    global user_logueado
+    if request.method == 'POST': 
+        pass
+    else:
+        return render_template('usuarios.html',logueado=logueado,usuario=user_logueado,usuarios=usuarios)

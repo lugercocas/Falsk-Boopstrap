@@ -10,19 +10,19 @@
         </h4>
         <ul class="list-group">
             <li class="list-group-item list-group-item-secondary">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="/admin">
                     <i class="bi bi-house-door"></i>
                     Inicio
                 </a>
             </li>
             <li class="list-group-item list-group-item-secondary">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="/perfil">
                     <i class="bi bi-person-badge"></i>
                     Perfíl
                 </a>
             </li>            
             <li class="list-group-item list-group-item-secondary">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="/comprados">
                     <i class="bi bi-cart-plus"></i>
                     Compras
                 </a>
@@ -38,21 +38,21 @@
             <!--Solo se muestra si el rol es de Super Administrador-->
             {% if (usuario[0] == 2) %}
             <li class="list-group-item list-group-item-secondary">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="/usuarios">
                     <i class="bi bi-people"></i>
                     Usuarios
                 </a>
             </li>
             {% endif %}
             <li class="list-group-item list-group-item-secondary">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="/soporte">
                     <i class="bi bi-question-circle"></i>
                     Ayuda
                 </a>
             </li>
           </ul>
     </div>
-    <div class="col-9">        
+    <div class="col-9">               
         {% block admin %}{% endblock %}
     </div>
 </div>

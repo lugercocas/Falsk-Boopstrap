@@ -1,7 +1,12 @@
 {% extends "useradmin.html" %}
 {% block admin %}
 <br><br><br>
-
+<form action="agregarproducto">
+  <button type="submit" class="btn btn-success">
+    <i class="bi bi-plus-square-dotted"></i>
+    Agregar Nuevo Producto</button>
+</form>
+<hr>
 {% for producto in productos %}
   <div class="card mb-3" style="max-width: 90%">
     <div class="row g-0">
@@ -12,7 +17,7 @@
         <div class="card-body">
           <h5 class="card-title">{{producto[1]}}</h5>
           <p class="card-text">{{producto[4]}}</p>
-          <p class="card-text"><small class="text-muted">Precio ${{2}}</small></p>
+          <p class="card-text"><small class="text-muted">Precio ${{producto[2]}}</small></p>
 
           <form class="d-flex" action="/producto">
             <button type="submit" class="btn btn-danger" name="eliminarproducto" value="{{producto[0]}}">Eliminar</button>

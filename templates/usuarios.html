@@ -1,0 +1,38 @@
+{% extends "useradmin.html" %}
+{% block admin %}
+<h1>Página de Administración de usuarios.</h1>
+<h2>Aquí se le puede cambiar el rol del usaurio.</h2>
+{% for usr in usuarios %}
+<div class="card text-dark bg-light mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <i class="bi-person-circle" style="font-size: 3rem; color: rgb(12, 29, 65);"></i>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{usr[3]}}</h5>
+          <p class="card-text">{{usr[1]}}</p>
+          <p class="card-text"><small class="text-muted">Rol: {{usr[0]}}</small></p>
+          <!--Botón para seleccionar el rol-->
+          
+            <div class="btn-group">
+                <button class="btn btn-secondary btn-lg" type="button">
+                Seleciona un Rol
+                </button>
+                <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/usuarios/{{usr[1]}}/0">Cliente</a></li>
+                    <li><a class="dropdown-item" href="/usuarios/{{usr[1]}}/1">Administrador</a></li>
+                    <li><a class="dropdown-item" href="/usuarios/{{usr[1]}}/2">Super Administrador</a></li>
+                </ul>
+            </div>
+          <!--Fin Botón selecionar rol-->
+        </div>
+      </div>
+    </div>
+  </div>  
+{% endfor %}
+<br><br><br>
+{% endblock %}

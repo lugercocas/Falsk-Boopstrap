@@ -1,0 +1,26 @@
+{% extends "useradmin.html" %}
+{% block admin %}
+<br><br><br>
+<div class="card mb-3" style="max-width: 98%;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="../static/{{producto[3]}}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title">{{producto[1]}}</h3>
+          <p class="card-text">{{producto[4]}}</p>
+          <p class="card-text"><small class="text-muted">${{producto[2]}} iva incluido.</small></p>
+          <p>Otro párrafo de descripción detallada del producto.
+            Otro párrafo de descripción detallada del producto.
+            Otro párrafo de descripción detallada del producto.
+            Otro párrafo de descripción detallada del producto.
+            Otro párrafo de descripción detallada del producto.
+            Otro párrafo de descripción detallada del producto.
+            Otro párrafo de descripción detallada del producto.
+          </p>          
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

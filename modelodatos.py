@@ -21,3 +21,5 @@ comentarios = [
     [0,'user@rs.co','Es un muy buen producto',5],
     [1,'user@rs.co','Es un muy buen producto',4]
 ]
+
+#Modelo productos comprados
