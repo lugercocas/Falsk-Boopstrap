@@ -11,12 +11,3 @@
     display: flex;
     justify-content: space-evenly;
 }
-.btncancelar{
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-#btncancelar{
-    padding: 5px;
-    text-decoration: none;
-}

@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect
 from modelodatos import usuarios
 from modelodatos import productosdb
 from modelodatos import comentarios
-
+import funciones
 
 global logueado
 global idProducto
@@ -29,7 +29,8 @@ def soporte():
 
 @app.route('/productos')
 def productos():
-    return render_template('productos.html')
+    global logueado
+    return render_template('productos.html',productos = productosdb,logueado=logueado)
 
 
 @app.route('/buscar')
@@ -52,7 +53,7 @@ def login():
 def validarInicioSesion(usuario,clave):
     pagina = ""
     for user in usuarios:
-        print(user[1],user[2],usuario,clave)
+        #print(user[1],user[2],usuario,clave)
         if (user[1] == usuario and user[2]==clave):
             global logueado
             global user_logueado
@@ -156,13 +157,15 @@ def eliminarProductos():
         elif(request.args.get('verproducto')!= None ):
             id_producto = int(request.args.get('verproducto'))
             aux = []
+            aux2 =[]
             for proc in productosdb:
                 if (proc[0] == id_producto):
                  aux = proc 
                  break 
-            print(productosdb[0])
-            print(id_producto,aux)
-            return render_template('verproducto.html', producto = aux, logueado=logueado,usuario=user_logueado)
+            for coms in comentarios:
+                if(coms[0] == id_producto):
+                    aux2.append(coms)            
+            return render_template('verproducto.html', producto = aux, logueado=logueado,usuario=user_logueado, opiniones = aux2)
     elif request.method == 'POST':
         nombreproducto = request.form.get('nombreproducto') 
         precio = request.form.get('precio') 
@@ -207,7 +210,20 @@ def perfil():
 def comentar():
     global logueado
     global user_logueado
-    return render_template('comentar.html', logueado=logueado, usuario=user_logueado)
+    global idProducto 
+    if(request.method == 'GET'):
+        global logueado
+        global user_logueado
+        return render_template('comentar.html', logueado=logueado, usuario=user_logueado)
+    elif(request.method == 'POST'):
+        coment = request.form.get('comtxt')
+        coment2 = request.form.get('comtxt2')
+        coment3 = request.form.get('comtxt3') #calificación
+        #ids = 1#request.form.get('idP')
+        comentarios.append([0, user_logueado[1],coment2,float(coment3)])
+        print(comentarios)
+        return redirect('/comprados')
+
 
 @app.route('/comprados/')
 def comprados():
@@ -245,3 +261,43 @@ def usuariosact():
         pass
     else:
         return render_template('usuarios.html',logueado=logueado,usuario=user_logueado,usuarios=usuarios)
+
+@app.route('/usuarios/<usuario>/<rol>')
+def usuariosact2(usuario,rol):
+    l = 0
+    global user_logueado
+    for us in usuarios:
+        if us[1]==usuario:
+            #si el usuario ingresado es igual al usuario en BD, actualio el rol.
+            usuarios[l][0] = rol
+            user_logueado[0] = rol
+            break
+        l = l+1
+    return redirect('/usuarios')
+
+@app.route('/comentar/comentara',methods=['GET', 'POST'])
+def comentario():
+    global logueado
+    global user_logueado
+    global idProducto 
+    if(request.method == 'GET'):
+        if(request.args.get('enviar')!= None ):
+            id_producto = int(request.args.get('idP'))
+            aux =[]
+            if(request.args.get('comtxt2')!= ''):
+                if(request.args.get('comint')!=''):
+                    if(funciones.es_flotante(float(request.args.get('comint')))):
+                        aux = [id_producto,user_logueado[0],request.args.get('comtxt2'), int(request.args.get('comint'))]
+                        comentarios.append(aux)
+                        return render_template('comprados.html', logueado=logueado, usuario=user_logueado)
+        elif(request.args.get('cancelar')!= None ):
+            return render_template('comprados.html', logueado=logueado, usuario=user_logueado)
+    elif request.method == 'POST':
+        coment = request.args.get('comtxt')
+        coment2 = request.args.get('comtxt2')
+        coment3 = request.args.get('comtxt3')
+        ids = request.args.get('idP')
+        print(ids,coment,coment2,coment3)
+        id = int(ids)
+        comentarios.append([id, user_logueado[0],coment2,float(coment3)])
+        redirect('/comprados')

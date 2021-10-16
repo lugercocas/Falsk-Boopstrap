@@ -12,19 +12,24 @@
     </div>
 
     <div class="cajacomentario">
-        <form name="fcom" id="fcom" action="" method="POST">
+        <form  method="POST">
             <div class="textocomentario">
                 <div><p>Escribe tu opinion: </p></div>
-                <div class="cajatexto"><textarea name="comtxt" id="comtxt" cols="50" rows="10"></textarea></div>
+                <div class="cajatexto"><textarea name="comtxt" id="comtxt" cols="50" rows="10" required></textarea></div>
             </div>
             <div class="resumen">
                 <div><p>Resume tu opinión en una frase (Opcional):</p></div>
-                <div class="cajatexto"><textarea name="comtxt" id="comtxt" cols="50" rows="2"></textarea></div>
+                <div class="cajatexto"><textarea name="comtxt2" id="comtxt2" cols="50" rows="2"></textarea></div>
             </div>
-            <div class="botones">
-                <div><input type="button" name="cancelar" id="btncancelar" value="Cancelar" onclick="location.href"></div>
-                <div><input type="button" name="enviar" id="btnenviar" value="Enviar" onclick="submit();"></div>
+            <div class="resumen">
+                <div><p>Resume tu opinión en un numero (Opcional):</p></div>
+                <div class="cajatexto"><textarea name="comtxt3" id="comtxt3" cols="50" rows="2"></textarea></div>
             </div>
+            <input type="text" name="idP" id="idP" value="1" disabled>
+                          
+                <button type="button" class="btn btn-primary" name="cancelar" id="btncancelar" value="algo">Cancelar</button>
+                <button type="submit" class="btn btn-primary" name="enviar">Enviar</button>
+            
         </form>
     </div>
 </div>
