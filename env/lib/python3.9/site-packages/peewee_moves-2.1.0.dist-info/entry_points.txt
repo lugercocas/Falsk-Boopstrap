@@ -1,0 +1,6 @@
+[console_scripts]
+peewee-db = peewee_moves:cli_command
+
+[flask.commands]
+db = peewee_moves:flask_command
+

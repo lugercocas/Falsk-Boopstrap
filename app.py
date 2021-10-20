@@ -3,6 +3,9 @@ from modelodatos import usuarios
 from modelodatos import productosdb
 from modelodatos import comentarios
 import funciones
+from models import *
+from config import dev
+
 
 global logueado
 global idProducto
@@ -14,7 +17,9 @@ logueado = False
 #$env:FLASK_ENV = "development"
 
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+#app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.config.from_object(dev)
+db.init_app(app)
 
 @app.route('/')
 def index():
@@ -224,7 +229,6 @@ def comentar():
         print(comentarios)
         return redirect('/comprados')
 
-
 @app.route('/comprados/')
 def comprados():
     global logueado
@@ -301,3 +305,6 @@ def comentario():
         id = int(ids)
         comentarios.append([id, user_logueado[0],coment2,float(coment3)])
         redirect('/comprados')
+
+if __name__=="__main__":
+    app.run()
