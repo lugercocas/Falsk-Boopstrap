@@ -11,18 +11,18 @@
   <div class="card mb-3" style="max-width: 90%">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="../static/{{producto[3]}}" class="img-fluid rounded-start" alt="...">
+        <img src="../static/img/{{producto.path_imagen}}" class="img-fluid rounded-start" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">{{producto[1]}}</h5>
-          <p class="card-text">{{producto[4]}}</p>
-          <p class="card-text"><small class="text-muted">Precio ${{producto[2]}}</small></p>
+          <h5 class="card-title">{{producto.nombre_producto}}</h5>
+          <p class="card-text">{{producto.descripcion}}</p>
+          <p class="card-text"><small class="text-muted">Precio ${{producto.precio}}</small></p>
 
           <form class="d-flex" action="/producto">
-            <button type="submit" class="btn btn-danger" name="eliminarproducto" value="{{producto[0]}}">Eliminar</button>
-            <button type="submit" class="btn btn-success" name="editarproducto" value="{{producto[0]}}">Editar</button>
-            <button type="submit" class="btn btn-primary" name="verproducto" value="{{producto[0]}}">Detalles</button>
+            <button type="submit" class="btn btn-danger" name="eliminarproducto" value="{{producto.id_producto}}">Eliminar</button>
+            <button type="submit" class="btn btn-success" name="editarproducto" value="{{producto.id_producto}}">Editar</button>
+            <button type="submit" class="btn btn-primary" name="verproducto" value="{{producto.id_producto}}">Detalles</button>
           </form>           
 
         </div>

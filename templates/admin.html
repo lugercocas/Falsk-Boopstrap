@@ -1,6 +1,7 @@
 {% extends "navbar-footer.html" %}
 {% block content %}
 <br><br><br><hr>
+{% if logueado %}
 <div class="row">
     <div class="col-3 bg-ligh">
         <!--Menú lateral izquierdo-->
@@ -27,7 +28,7 @@
                     Compras
                 </a>
             </li>
-            {% if (usuario[0] == 1 or usuario[0] == 2) %}
+            {% if (usuario.rol == 1 or usuario.rol == 2) %}
             <li class="list-group-item list-group-item-secondary">
                 <a class="nav-link active" aria-current="page" href="/admproductos">
                     <i class="bi bi-patch-plus"></i>
@@ -36,7 +37,7 @@
             </li>
             {% endif %}
             <!--Solo se muestra si el rol es de Super Administrador-->
-            {% if (usuario[0] == 2) %}
+            {% if (usuario.rol == 2) %}
             <li class="list-group-item list-group-item-secondary">
                 <a class="nav-link active" aria-current="page" href="/usuarios">
                     <i class="bi bi-people"></i>
@@ -52,7 +53,8 @@
             </li>
           </ul>
     </div>
-    <div class="col-9">               
+    {% endif %}
+    <div class="{% if logueado %}col-9{% else %}col-12{% endif %}">               
         {% block admin %}{% endblock %}
     </div>
 </div>

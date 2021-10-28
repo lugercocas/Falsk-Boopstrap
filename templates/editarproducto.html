@@ -1,43 +1,49 @@
 {% extends "useradmin.html" %}
 {% block admin %}
-<h1>Editar producto {{producto[1]}}</h1>
+<h1>Editar producto {{producto.nombre_producto}}</h1>
 <form action="producto" method="post">
     <div class="container">
         <div class="row">
           <div class="col-8">
                 <label for="nombreproducto" class="col-sm-12 col-form-label">Nombre del Producto</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" id="nombreproducto" name="nombreproducto" value="{{producto[1]}}">
+                    <input type="text" class="form-control" id="nombreproducto" name="nombreproducto" value="{{producto.nombre_producto}}">
                 </div>            
                 <label for="imagen" class="col-sm-12 col-form-label">Imagen</label>
-                <div class="col-sm-12">
-                    <img src="../static/{{producto[3]}}" value="{{producto[3]}}"><br>                    
+                <div class="col-md-4">
+                    <img src="../static/img/{{producto.path_imagen}}" value="{{producto.path_imagen}}" width="135rem" height="135rem"><br>                    
                 </div>    
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Cargar Imagen</label>
-                </div>            
+                    <input type="file" class="form-control" id="imagen"  name="imagen" value="{{producto.path_imagen}}">
+                    <label class="input-group-text" for="imagen">Cargar Imagen</label>
+                </div> 
+                <label for="cantidad" class="col-sm-12 col-form-label">Cantidad</label> 
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="cantidad" name="cantidad" value="{{producto.cantidad}}">
+                </div> 
+                <label for="descripcion" class="col-sm-12 col-form-label">Descripción</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" name="descripcion" id="descripcion" value="{{producto.descripcion}}" >
+                </div>                   
+                <div class="col-sm-12 d-none">
+                    <input type="text" class="form-control" name="id_producto" id="id_producto" value="{{producto.id_producto}}">
+                </div>       
             </div>
           <div class="col-4">
                 <label for="precio" class="col-sm-12 col-form-label">Precio</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="precio" name="precio" value="{{producto[2]}}">
+                  <input type="text" class="form-control" id="precio" name="precio" value="{{producto.precio}}">
                  </div>
-                <label for="descripcion" class="col-sm-12 col-form-label">Descripción</label>
+                <label for="descripciondet" class="col-sm-12 col-form-label">Descripción Detallada</label>
                 <div class="col-sm-12">
-                    <textarea name="descripcion" id="descripcion" cols="30" rows="10">{{producto[4]}}</textarea>
+                    <textarea name="descripciondet" id="descripciondet" cols="30" rows="10">{{producto.descripcion_detallada}}</textarea>
                 </div>
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>
+                    <button type="submit" class="btn btn-primary btn-lg" >Guardar cambios</button>
                 </div>
           </div>
         </div>
       </div>
-    
-
-        
-
-
 </form>
 <br><br><br>
 {% endblock %}

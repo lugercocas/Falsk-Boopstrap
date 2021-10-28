@@ -2,7 +2,7 @@
 {% block admin %}
 <h1>Agregar un Nuevo Producto</h1>
 
-<form action="agregarproducto" method="post">
+<form action="agregarproducto" method="post" enctype=multipart/form-data>
     <div class="container">
         <div class="row">
           <div class="col-8">
@@ -15,18 +15,26 @@
                     <img src="" value=""><br>                    
                 </div>    
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Cargar Imagen</label>
-                </div>            
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                    <label class="input-group-text" for="imagen">Cargar Imagen</label>
+                </div>  
+                <label for="descripcion" class="col-sm-12 col-form-label">Descripción Corta del Producto</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" value="">
+                </div>  
+                <label for="cantidad" class="col-sm-12 col-form-label">Cantidad</label>
+                <div class="col-sm-12">
+                  <input type="number" class="form-control" id="cantidad" name="cantidad" value="">
+                 </div>         
             </div>
           <div class="col-4">
                 <label for="precio" class="col-sm-12 col-form-label">Precio</label>
                 <div class="col-sm-12">
                   <input type="text" class="form-control" id="precio" name="precio" value="">
                  </div>
-                <label for="descripcion" class="col-sm-12 col-form-label">Descripción</label>
+                <label for="descripciondet" class="col-sm-12 col-form-label">Descripción Detallada</label>
                 <div class="col-sm-12">
-                    <textarea name="descripcion" id="descripcion" cols="30" rows="10"></textarea>
+                    <textarea name="descripciondet" id="descripciondet" cols="30" rows="10"></textarea>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg">Guardar cambios</button>

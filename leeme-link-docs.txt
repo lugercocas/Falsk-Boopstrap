@@ -1,0 +1,22 @@
+Documentación Oficial para bootstrap v5.1
+https://getbootstrap.com/docs/5.1/
+
+Publicar aplicación en flask
+https://www.pythonanywhere.com/registration/register/beginner/
+
+http://lugercocas.pythonanywhere.com
+
+Iconos
+https://icons.getbootstrap.com/
+
+Documentación de Flask
+https://flask.palletsprojects.com/en/2.0.x/
+
+Documentación Jinja
+https://jinja.palletsprojects.com/en/3.0.x/
+
+Documentación peewee
+https://docs.peewee-orm.com/en/latest/index.html#
+
+Documentación queries peewee
+http://docs.peewee-orm.com/en/latest/peewee/querying.html
