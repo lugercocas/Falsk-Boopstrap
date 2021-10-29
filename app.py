@@ -345,7 +345,8 @@ def comentario():
 
 @app.route('/listadeseos', methods=['GET', 'POST'])
 def listadeseos():
-    #global user_logueado
+    global logueado
+    global user_logueado
     if(request.method == 'GET'):        
         user = session['username']
         print(request.args.get('agregarroducto'))
@@ -360,7 +361,7 @@ def listadeseos():
         prods = []
         for p in ps:
             prods.append(model_to_dict(p.producto))
-        return render_template('/listadeseos.html',productos = prods)
+        return render_template('/listadeseos.html',productos = prods,logueado=logueado,usuario=user_logueado)
     elif(request.method == 'POST'):
         #procesar agregar/eliminar prod, lista deseos
         prodelim = request.form.get('eliminarprolista') 
